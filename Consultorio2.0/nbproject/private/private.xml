@@ -4,8 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/rogel/OneDrive/Escritorio/Consultorio2.0/src/C/Menu/Menu.java</file>
-            <file>file:/C:/Users/rogel/OneDrive/Escritorio/Consultorio2.0/src/consultorio2/pkg0/Consultorio20.java</file>
-            <file>file:/C:/Users/rogel/OneDrive/Escritorio/Consultorio2.0/src/C/Citas/Citas.java</file>
+            <file>file:/C:/Users/rogel/OneDrive/Escritorio/Consultorio2.0/src/C/Login/Login.java</file>
+            <file>file:/C:/Users/rogel/OneDrive/Escritorio/Consultorio2.0/src/C/Citas/Registro_Citas.java</file>
+            <file>file:/C:/Users/rogel/OneDrive/Escritorio/Consultorio2.0/src/C/Citas/Consulta_Citas.java</file>
         </group>
     </open-files>
 </project-private>
