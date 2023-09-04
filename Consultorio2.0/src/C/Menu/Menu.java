@@ -106,7 +106,7 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.ipadx = -33;
         gridBagConstraints.ipady = -9;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(11, 18, 0, 19);
+        gridBagConstraints.insets = new java.awt.Insets(11, 18, 0, 0);
         jPanel1.add(jButton4, gridBagConstraints);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/C/Menu/Medicos.png"))); // NOI18N
@@ -147,7 +147,7 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.ipadx = -33;
         gridBagConstraints.ipady = -9;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 18, 0, 19);
+        gridBagConstraints.insets = new java.awt.Insets(20, 18, 0, 0);
         jPanel1.add(jButton8, gridBagConstraints);
 
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/C/Menu/Usuarios.png"))); // NOI18N
@@ -181,14 +181,14 @@ public class Menu extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(18, 101, 11, 0);
         jPanel1.add(jButton11, gridBagConstraints);
 
-        jButton12.setText("Salir");
+        jButton12.setText("Modificar Contraseña");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.ipadx = 47;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipady = 77;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 18, 11, 19);
+        gridBagConstraints.insets = new java.awt.Insets(18, 18, 11, 66);
         jPanel1.add(jButton12, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
