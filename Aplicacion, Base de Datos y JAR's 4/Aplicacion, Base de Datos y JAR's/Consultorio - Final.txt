@@ -1,0 +1,193 @@
+CREATE DATABASE Consultorio;
+
+USE Consultorio;
+
+
+CREATE TABLE Ficha_Clinica (
+  Id_Ficha_Clinica INT NOT NULL PRIMARY KEY
+);
+
+CREATE TABLE Registro_Visita (
+  Id_Registro INT NOT NULL PRIMARY KEY
+);
+
+
+
+
+
+CREATE TABLE Rol (
+  Id_Rol INT NOT NULL PRIMARY KEY,
+  Nombre_Rol VARCHAR(20) NOT NULL
+);
+
+INSERT INTO Rol (Id_Rol, Nombre_Rol) VALUES (1, 'Alumno');
+INSERT INTO Rol (Id_Rol, Nombre_Rol) VALUES (2, 'Medico');
+INSERT INTO Rol (Id_Rol, Nombre_Rol) VALUES (3, 'Secretario');
+
+CREATE TABLE Categoria (
+  Id_Categoria INT NOT NULL PRIMARY KEY,
+  Nombre_Categoria VARCHAR(50) NOT NULL,
+  Descripcion TEXT NULL
+);
+
+INSERT INTO Categoria (Id_Categoria, Nombre_Categoria, Descripcion) VALUES (1, 'Material de Curación', 'Suministros médicos varios');
+INSERT INTO Categoria (Id_Categoria, Nombre_Categoria, Descripcion) VALUES (2, 'Medicamentos', 'Lista de medicamentos disponibles');
+
+CREATE TABLE Servicio (
+  Id_Servicio INT NOT NULL PRIMARY KEY,
+  Nombre_Servicio VARCHAR(50) NOT NULL,
+  Descripcion TEXT NOT NULL,
+  Hora_Inicio TIME NOT NULL,
+  Hora_Termino TIME NOT NULL
+);
+
+INSERT INTO Servicio (Id_Servicio, Nombre_Servicio, Descripcion, Hora_Inicio, Hora_Termino) VALUES (1, 'Consulta General', 'Consulta médica general', '08:00:00', '18:00:00');
+INSERT INTO Servicio (Id_Servicio, Nombre_Servicio, Descripcion, Hora_Inicio, Hora_Termino) VALUES (2, 'Examen de Sangre', 'Análisis de sangre completo', '07:30:00', '12:30:00');
+INSERT INTO Servicio (Id_Servicio, Nombre_Servicio, Descripcion, Hora_Inicio, Hora_Termino) VALUES (3, 'Radiografía', 'Radiografía de diagnóstico', '09:00:00', '17:00:00');
+
+CREATE TABLE Consultorio (
+  Id_Consultorio INT NOT NULL PRIMARY KEY,
+  Nombre_Consultorio VARCHAR(50) NOT NULL,
+  Descripcion TEXT NULL
+);
+
+INSERT INTO Consultorio (Id_Consultorio, Nombre_Consultorio, Descripcion) VALUES (202, 'Consultorio A', 'Consultorio de medicina general');
+INSERT INTO Consultorio (Id_Consultorio, Nombre_Consultorio, Descripcion) VALUES (203, 'Consultorio B', 'Consultorio de medicina general');
+INSERT INTO Consultorio (Id_Consultorio, Nombre_Consultorio, Descripcion) VALUES (204, 'Consultorio C', NULL);
+
+CREATE TABLE Medicamento (
+  Id_Medicamento INT NOT NULL PRIMARY KEY,
+  Nombre_Medicamento VARCHAR(255) NOT NULL,
+  Stock INT NOT NULL,
+  Tipo VARCHAR(50) NULL,
+  Indicaciones TEXT NULL,
+  Contraindicaciones TEXT NULL,
+  Precio DECIMAL(10, 2) NULL,
+  Proveedor VARCHAR(100) NULL,
+  Fecha_Vencimiento DATE NOT NULL
+);
+
+INSERT INTO Medicamento (Id_Medicamento, Nombre_Medicamento, Stock, Tipo, Indicaciones, Contraindicaciones, Precio, Proveedor, Fecha_Vencimiento) VALUES (1001, 'Ibuprofeno', 100, 'Antiinflamatorio', 'Dolor de cabeza, fiebre', 'Alergia al ibuprofeno', 5.99, 'Farmacia ABC', 'L0123', '2024-08-31');
+INSERT INTO Medicamento (Id_Medicamento, Nombre_Medicamento, Stock, Tipo, Indicaciones, Contraindicaciones, Precio, Proveedor, Fecha_Vencimiento) VALUES (1002, 'Amoxicilina', 50, 'Antibiótico', 'Infecciones respiratorias', 'Alergia a la penicilina', 8.50, 'Farmacia XYZ', '2023-12-15');
+INSERT INTO Medicamento (Id_Medicamento, Nombre_Medicamento, Stock, Tipo, Indicaciones, Contraindicaciones, Precio, Proveedor, Fecha_Vencimiento) VALUES (1003, 'Paracetamol', 200, 'Analgésico', 'Fiebre, dolor leve', NULL, 3.75, 'Farmacia DEF', '2025-05-20');
+
+
+CREATE TABLE Usuario (
+  Numero_Control INT NOT NULL PRIMARY KEY,
+  Id_Rol INT NOT NULL,
+  Contrasenya TEXT NOT NULL,
+  FOREIGN KEY (Id_Rol) REFERENCES Rol(Id_Rol)
+);
+
+INSERT INTO Usuario (Numero_Control, Id_Rol, Contrasenya) VALUES (111111111, 1, 'P@ssw0rd');
+INSERT INTO Usuario (Numero_Control, Id_Rol, Contrasenya) VALUES (222222221, 2, 'P@ssw0rd');
+INSERT INTO Usuario (Numero_Control, Id_Rol, Contrasenya) VALUES (222222222, 2, 'P@ssw0rd');
+INSERT INTO Usuario (Numero_Control, Id_Rol, Contrasenya) VALUES (222222223, 2, 'P@ssw0rd');
+INSERT INTO Usuario (Numero_Control, Id_Rol, Contrasenya) VALUES (333333333, 3, 'P@ssw0rd');
+
+CREATE TABLE Elemento (
+  Id_Elemento INT NOT NULL PRIMARY KEY,
+  Id_Categoria INT NOT NULL,
+  Nombre_Producto VARCHAR(100) NOT NULL,
+  Cantidad INT NOT NULL,
+  Estado VARCHAR(50) NOT NULL,
+  Motivo_Reposicion TEXT NULL,
+  Fecha_Registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (Id_Categoria) REFERENCES Categoria(Id_Categoria)
+);
+
+CREATE TABLE Alumno (
+  Numero_Control INT NOT NULL PRIMARY KEY,
+  Nombre_Alumno VARCHAR(50) NOT NULL,
+  Apellido_Alumno VARCHAR(50) NOT NULL,
+  Fecha_Nacimiento DATE NOT NULL,
+  Genero CHAR(1) NOT NULL,
+  Telefono VARCHAR(10) NULL,
+  Correo TEXT NULL,
+  Direccion TEXT NULL,
+  Fecha_Registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO Alumno (Numero_Control, Nombre_Alumno, Apellido_Alumno, Fecha_Nacimiento, Genero, Telefono, Correo, Direccion) VALUES (111111111, 'Juan', 'Perez', '1995-05-15', 'M', 1234567890, 'juan@example.com', 'Calle 123, Ciudad');
+
+CREATE TABLE Medico (
+  Numero_Control INT NOT NULL PRIMARY KEY,
+  Nombre_Medico VARCHAR(50) NOT NULL,
+  Apellido_Medico VARCHAR(50) NOT NULL,
+  Telefono VARCHAR(10) NULL,
+  Correo TEXT NULL,
+  Direccion TEXT NULL,
+  Fecha_Registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO Medico (Numero_Control, Nombre_Medico, Apellido_Medico, Telefono, Correo, Direccion) VALUES (222222221, 'Alfonso', 'Hernandez', '1234567890', 'alfonH@example.com', 'Calle Ficticia 213');
+INSERT INTO Medico (Numero_Control, Nombre_Medico, Apellido_Medico, Telefono, Correo, Direccion) VALUES (222222222, 'Luisa', 'Hernandez', '1234567890', 'luisaH@example.com', 'Calle Ficticia 223');
+INSERT INTO Medico (Numero_Control, Nombre_Medico, Apellido_Medico, Telefono, Correo, Direccion) VALUES (222222223, 'Fernando', 'Hernandez', '1234567890', 'fernH@example.com', 'Calle Ficticia 233');
+
+
+CREATE TABLE Secretario (
+  Numero_Control INT NOT NULL PRIMARY KEY,
+  Nombre_Secretario VARCHAR(50) NOT NULL,
+  Apellido_Secretario VARCHAR(50) NOT NULL,
+  Telefono VARCHAR(10) NULL,
+  Correo TEXT NULL,
+  Direccion TEXT NULL,
+  Fecha_Registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO Secretario (Numero_Control, Nombre_Secretario, Apellido_Secretario, Telefono, Correo, Direccion) VALUES (333333333, 'Jesus', 'Valdez', '0987654321', 'jValdez@example.com', 'Avenida Luz y Noche');
+
+
+CREATE TABLE Cita (
+  Id_Cita INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  Medico_Numero_Control INT NOT NULL,
+  Alumno_Numero_Control INT NOT NULL,
+  Id_Consultorio INT NOT NULL,
+  Id_Servicio INT NOT NULL,
+  Fecha DATE NOT NULL,
+  Hora TIME NOT NULL,
+  FOREIGN KEY (Medico_Numero_Control) REFERENCES Medico(Numero_Control),
+  FOREIGN KEY (Alumno_Numero_Control) REFERENCES Alumno(Numero_Control),
+  FOREIGN KEY (Id_Consultorio) REFERENCES Consultorio(Id_Consultorio),
+  FOREIGN KEY (Id_Servicio) REFERENCES Servicio(Id_Servicio)
+);
+
+CREATE TABLE Receta_Medica (
+  Id_Receta_Medica INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  Alumno_Numero_Control INT NOT NULL,
+  Sintomas TEXT NOT NULL,
+  Tratamiento TEXT NOT NULL,
+  Diagnostico TEXT NOT NULL,
+  Fecha_Inicio DATE NOT NULL,
+  Fecha_Final DATE NOT NULL,
+  FOREIGN KEY (Alumno_Numero_Control) REFERENCES Alumno(Numero_Control)
+);
+
+CREATE TABLE Receta_Medica__Medicamento (
+  Id_RecetaMedica_Medicamento INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  Id_Receta_Medica INT NOT NULL,
+  Id_Medicamento INT NOT NULL,
+  Frecuencia VARCHAR(255) NOT NULL,
+  Cantidad INT NOT NULL,
+  FOREIGN KEY (Id_Receta_Medica) REFERENCES Receta_Medica(Id_Receta_Medica),
+  FOREIGN KEY (Id_Medicamento) REFERENCES Medicamento(Id_Medicamento)
+);
+
+CREATE TABLE Pase_Urgencias (
+  Id_Pase_Urgencias INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  Alumno_Numero_Control INT NOT NULL,
+  Observaciones TEXT NOT NULL,
+  Fecha_Emision TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (Alumno_Numero_Control) REFERENCES Alumno(Numero_Control)
+);
+
+CREATE TABLE Registro__Servicio (
+  Id_Registro_Servicio INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  Id_Registro INT NOT NULL,
+  Id_Servicio INT NOT NULL,
+  Fecha_Registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (Id_Registro) REFERENCES Registro_Visita(Id_Registro),
+  FOREIGN KEY (Id_Servicio) REFERENCES Servicio(Id_Servicio)
+);
+
+
