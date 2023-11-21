@@ -1,0 +1,185 @@
+CREATE DATABASE Consultorio;
+
+USE Consultorio;
+
+CREATE TABLE Rol (
+  Id_Rol INT NOT NULL PRIMARY KEY,
+  Nombre_Rol VARCHAR(20) NOT NULL
+);
+
+INSERT INTO Rol (Id_Rol, Nombre_Rol) VALUES (1, 'Alumno');
+INSERT INTO Rol (Id_Rol, Nombre_Rol) VALUES (2, 'Medico');
+INSERT INTO Rol (Id_Rol, Nombre_Rol) VALUES (3, 'Secretario');
+
+CREATE TABLE Servicio (
+  Id_Servicio INT NOT NULL PRIMARY KEY,
+  Nombre_Servicio VARCHAR(50) NOT NULL,
+  Descripcion TEXT NOT NULL,
+  Hora_Inicio TIME NOT NULL,
+  Hora_Termino TIME NOT NULL
+);
+
+INSERT INTO Servicio (Id_Servicio, Nombre_Servicio, Descripcion, Hora_Inicio, Hora_Termino) VALUES (1, 'Consulta General', 'Consulta medica general', '08:00:00', '18:00:00');
+INSERT INTO Servicio (Id_Servicio, Nombre_Servicio, Descripcion, Hora_Inicio, Hora_Termino) VALUES (2, 'Examen de Sangre', 'Analisis de sangre completo', '07:30:00', '12:30:00');
+INSERT INTO Servicio (Id_Servicio, Nombre_Servicio, Descripcion, Hora_Inicio, Hora_Termino) VALUES (3, 'Radiografia', 'Radiografia de diagnostico', '09:00:00', '17:00:00');
+
+CREATE TABLE Usuario (
+  Numero_Control INT NOT NULL PRIMARY KEY,
+  Id_Rol INT NOT NULL,
+  Contrasenya TEXT NOT NULL,
+  FOREIGN KEY (Id_Rol) REFERENCES Rol(Id_Rol)
+);
+
+INSERT INTO Usuario (Numero_Control, Id_Rol, Contrasenya) VALUES (111111111, 1, 'P@ssw0rd');
+INSERT INTO Usuario (Numero_Control, Id_Rol, Contrasenya) VALUES (222222221, 2, 'P@ssw0rd');
+INSERT INTO Usuario (Numero_Control, Id_Rol, Contrasenya) VALUES (222222222, 2, 'P@ssw0rd');
+INSERT INTO Usuario (Numero_Control, Id_Rol, Contrasenya) VALUES (222222223, 2, 'P@ssw0rd');
+INSERT INTO Usuario (Numero_Control, Id_Rol, Contrasenya) VALUES (333333333, 3, 'P@ssw0rd');
+
+CREATE TABLE Elemento (
+  Id_Elemento INT NOT NULL PRIMARY KEY,
+  Nombre_Categoria VARCHAR(20) NOT NULL,
+  Nombre_Producto VARCHAR(100) NOT NULL,
+  Cantidad INT NOT NULL,
+  Descripcion TEXT NOT NULL
+);
+
+INSERT INTO Elemento (Id_Elemento, Nombre_Categoria, Nombre_Producto, Cantidad, Descripcion) VALUES (1, 'Medicamento', 'Nombre del Medicamento 1', 100, 'Descripcion Medicamento 1');
+INSERT INTO Elemento (Id_Elemento, Nombre_Categoria, Nombre_Producto, Cantidad, Descripcion) VALUES (2, 'Medicamento', 'Nombre del Medicamento 2', 150, 'Descripcion Medicamento 2');
+
+CREATE TABLE Alumno (
+  Numero_Control INT NOT NULL PRIMARY KEY,
+  Nombre_Alumno VARCHAR(50) NOT NULL,
+  Apellido_Alumno VARCHAR(50) NOT NULL,
+  Fecha_Nacimiento DATE NOT NULL,
+  Genero CHAR(1) NOT NULL,
+  Telefono VARCHAR(10) NOT NULL,
+  Telefono_Emergencia VARCHAR(10) NOT NULL,
+  Correo TEXT NOT NULL,
+  Municipio VARCHAR(100) NOT NULL,
+  Estado VARCHAR(100) NOT NULL, 
+  Codigo_Postal INT NOT NULL,
+  Calle TEXT NOT NULL, 
+  Numero_Interior INT NOT NULL,
+  Numero_Exterior INT NULL,
+  Fecha_Registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO Alumno (Numero_Control, Nombre_Alumno, Apellido_Alumno, Fecha_Nacimiento, Genero, Telefono, Telefono_Emergencia, Correo, Municipio, Estado, Codigo_Postal, Calle, Numero_Interior, Numero_Exterior)
+VALUES (111111111, 'Juan Alberto', 'Perez Gomez', '2000-01-01', 'H', '1234567890', '9876543210', 'correo@ejemplo.com', 'CiudadEjemplo', 'EstadoEjemplo', 12345, 'CalleEjemplo', 101, NULL);
+
+CREATE TABLE Medico (
+  Numero_Control INT NOT NULL PRIMARY KEY,
+  Nombre_Medico VARCHAR(50) NOT NULL,
+  Apellido_Medico VARCHAR(50) NOT NULL,
+  Telefono VARCHAR(10) NOT NULL,
+  Telefono_Emergencia VARCHAR(10) NOT NULL, 
+  Correo TEXT NOT NULL,
+  Municipio VARCHAR(100) NOT NULL,
+  Estado VARCHAR(100) NOT NULL, 
+  Codigo_Postal INT NOT NULL,
+  Calle TEXT NOT NULL, 
+  Numero_Interior INT NOT NULL,
+  Numero_Exterior INT NULL,
+  Fecha_Registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO Medico (Numero_Control, Nombre_Medico, Apellido_Medico, Telefono, Telefono_Emergencia, Correo, Municipio, Estado, Codigo_Postal, Calle, Numero_Interior, Numero_Exterior)
+VALUES (222222221, 'NombreMedico1', 'ApellidoMedico1', '1234567890', '9876543210', 'correo1@ejemplo.com', 'Ciudad1', 'Estado1', 54321, 'Calle1', 101, NULL);
+
+INSERT INTO Medico (Numero_Control, Nombre_Medico, Apellido_Medico, Telefono, Telefono_Emergencia, Correo, Municipio, Estado, Codigo_Postal, Calle, Numero_Interior, Numero_Exterior)
+VALUES (222222222, 'NombreMedico2', 'ApellidoMedico2', '2345678901', '8765432109', 'correo2@ejemplo.com', 'Ciudad2', 'Estado2', 65432, 'Calle2', 102, 202);
+
+INSERT INTO Medico (Numero_Control, Nombre_Medico, Apellido_Medico, Telefono, Telefono_Emergencia, Correo, Municipio, Estado, Codigo_Postal, Calle, Numero_Interior, Numero_Exterior)
+VALUES (222222223, 'NombreMedico3', 'ApellidoMedico3', '3456789012', '7654321098', 'correo3@ejemplo.com', 'Ciudad3', 'Estado3', 76543, 'Calle3', 103, NULL);
+
+CREATE TABLE Secretario (
+  Numero_Control INT NOT NULL PRIMARY KEY,
+  Nombre_Secretario VARCHAR(50) NOT NULL,
+  Apellido_Secretario VARCHAR(50) NOT NULL,
+  Telefono VARCHAR(10) NOT NULL,
+  Telefono_Emergencia VARCHAR(10) NOT NULL,
+  Correo TEXT NOT NULL,
+  Municipio VARCHAR(100) NOT NULL,
+  Estado VARCHAR(100) NOT NULL, 
+  Codigo_Postal INT NOT NULL,
+  Calle TEXT NOT NULL, 
+  Numero_Interior INT NOT NULL,
+  Numero_Exterior INT NULL,
+  Fecha_Registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO Secretario (Numero_Control, Nombre_Secretario, Apellido_Secretario, Telefono, Telefono_Emergencia, Correo, Municipio, Estado, Codigo_Postal, Calle, Numero_Interior, Numero_Exterior)
+VALUES (333333333, 'NombreSecretario', 'ApellidoSecretario', '4567890123', '8765432109', 'correoSecretario@ejemplo.com', 'CiudadSecretario', 'EstadoSecretario', 98765, 'CalleSecretario', 201, NULL);
+
+CREATE TABLE Cita (
+  Id_Cita INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  Medico_Numero_Control INT NOT NULL,
+  Alumno_Numero_Control INT NOT NULL,
+  Id_Servicio INT NOT NULL,
+  Fecha DATE NOT NULL,
+  Hora TIME NOT NULL,
+  FOREIGN KEY (Medico_Numero_Control) REFERENCES Medico(Numero_Control),
+  FOREIGN KEY (Alumno_Numero_Control) REFERENCES Alumno(Numero_Control),
+  FOREIGN KEY (Id_Servicio) REFERENCES Servicio(Id_Servicio)
+);
+
+CREATE TABLE Receta_Medica (
+  Id_Receta_Medica INT NOT NULL PRIMARY KEY,
+  Alumno_Numero_Control INT NOT NULL,
+  Medico_Numero_Control INT NOT NULL,
+  Diagnostico TEXT NULL,
+  PesoKg INT NULL,
+  AlturaCm INT NULL,
+  Fecha_Emision DATE NOT NULL,
+  FOREIGN KEY (Alumno_Numero_Control) REFERENCES Alumno(Numero_Control),
+  FOREIGN KEY (Medico_Numero_Control) REFERENCES Medico(Numero_Control)
+);
+
+CREATE TABLE Receta_Medica__Elemento (
+  Id_RecetaMedica_Medicamento INT NOT NULL PRIMARY KEY,
+  Id_Receta_Medica INT NOT NULL,
+  Id_Elemento INT NOT NULL,
+  Frecuencia TEXT NOT NULL,
+  Cantidad INT NOT NULL,
+  FOREIGN KEY (Id_Receta_Medica) REFERENCES Receta_Medica(Id_Receta_Medica),
+  FOREIGN KEY (Id_Elemento) REFERENCES Elemento(Id_Elemento)
+);
+
+
+CREATE TABLE Ficha_Clinica (
+  Id_Ficha_Clinica INT NOT NULL PRIMARY KEY,
+  Alumno_Numero_Control INT NOT NULL,
+  Nombre_Medico VARCHAR(200) NOT NULL,
+  Alergias TEXT NOT NULL,
+  Recomendaciones TEXT NOT NULL,
+  Observaciones TEXT NOT NULL,
+  PesoKg INT NULL,
+  AlturaCm INT NULL,
+  Fecha_Actualizacion DATE NULL,
+  Hora_Actualizacion TIME NULL,
+  Medicamentos TEXT NULL,
+  Cita_Reciente DATE NULL,
+  FOREIGN KEY (Alumno_Numero_Control) REFERENCES Alumno(Numero_Control)
+);
+
+CREATE TABLE Pase_Urgencias (
+  Id_Pase_Urgencias INT NOT NULL PRIMARY KEY,
+  Alumno_Numero_Control INT NOT NULL,
+  Nombre_Alumno VARCHAR(100) NOT NULL,
+  Medico_Numero_Control INT NOT NULL,
+  Nombre_Medico VARCHAR(100) NOT NULL,
+  Razones TEXT NOT NULL,
+  Fecha_Emision TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Historial_Citas (
+  Id_Cita INT NOT NULL PRIMARY KEY,
+  Alumno_Numero_Control INT NOT NULL,
+  Nombre_Alumno VARCHAR(100) NOT NULL,
+  Medico_Numero_Control INT NOT NULL,
+  Nombre_Medico VARCHAR(100) NOT NULL,
+  Nombre_Servicio VARCHAR(50) NOT NULL,
+  Fecha_Cita DATE NOT NULL,
+  Asistencia CHAR(1) NOT NULL
+);
